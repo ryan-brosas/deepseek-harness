@@ -556,6 +556,7 @@ describe('npm release workflows', () => {
       const publish = workflow.jobs.publish
       if (!isRecord(publish)) throw new TypeError(`${file} must define a publish job`)
       expect(publish.environment).toBe('npm-publish')
+      expect(publish.if).toBe(`startsWith(github.ref, 'refs/tags/${file === 'release-publish.yml' ? 'dsh-v' : 'vendor-'}')`)
       expect(publish.needs).toBe('pack')
       expect(publish.concurrency).toMatchObject({ group: 'Release-publish' })
       if (file === 'release-publish.yml') {

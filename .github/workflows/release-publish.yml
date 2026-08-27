@@ -91,6 +91,8 @@ jobs:
 
   publish:
     name: Publish to npm
+    # Do not even enter the protected environment unless dispatch is on a dsh-v* tag.
+    if: startsWith(github.ref, 'refs/tags/dsh-v')
     needs: pack
     runs-on: ubuntu-24.04
     # Required reviewers and the allowed tags live on the environment; this is
