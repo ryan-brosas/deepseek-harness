@@ -4,10 +4,12 @@ on:
   pull_request:
     paths:
       - '.github/**'
+      - 'actionlint.yaml'
   push:
     branches: [master]
     paths:
       - '.github/**'
+      - 'actionlint.yaml'
 
 permissions:
   contents: read

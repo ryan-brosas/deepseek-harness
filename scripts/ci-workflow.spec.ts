@@ -9,6 +9,15 @@ const runnerPrivatePnpmDestination = '${{ runner.temp }}/setup-pnpm'
 const nativeWindowsPnpmDestination = '${{ runner.temp }}/setup-pnpm-js'
 
 describe('GitHub workflow schema', () => {
+
+  it('reruns workflow lint when the actionlint policy changes', () => {
+    const workflow = loadWorkflow('.github/workflows/workflow-lint.yml')
+    if (!isRecord(workflow.on)) throw new TypeError('workflow-lint must define triggers')
+    const pullRequest = workflow.on.pull_request
+    const push = workflow.on.push
+    expect(pullRequest).toMatchObject({ paths: expect.arrayContaining(['actionlint.yaml']) })
+    expect(push).toMatchObject({ paths: expect.arrayContaining(['actionlint.yaml']) })
+  })
   it('references only declared package scripts in workflow run commands', () => {
     const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8')) as { scripts?: Record<string, unknown> }
     const declared = new Set(Object.keys(packageJson.scripts ?? {}))
