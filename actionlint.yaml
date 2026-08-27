@@ -1,0 +1,16 @@
+self-hosted-runner:
+  labels:
+    - vm-backup
+    - dsh-win-ci
+    - dsh-ubuntu-24-04-4core
+    - dsh-ubuntu-24-04-8core
+    - dsh-ubuntu-24-04-16core
+    - dsh-ubuntu-24-04-32core
+    - dsh-ubuntu-24-04-64core
+    - dsh-ubuntu-24-04-96core
+    - dsh-windows-2025-4core
+    - dsh-windows-2025-8core
+    - dsh-windows-2025-16core
+    - dsh-windows-2025-32core
+    - dsh-windows-2025-64core
+    - dsh-windows-2025-96core
