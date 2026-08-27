@@ -58,7 +58,7 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       repository-version: ${{ steps.version.outputs.repository-version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
 
       - name: Resolve repository version
         id: version
@@ -112,9 +112,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
 
-      - uses: actions/setup-python@v6.3.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.10'
 
@@ -127,7 +127,7 @@ jobs:
           --package sdk
           --output-dir dist-python
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: deepseek_harness_sdk-${{ needs.plan.outputs.version }}-py3-none-any.whl
           path: dist-python/deepseek_harness_sdk-${{ needs.plan.outputs.version }}-py3-none-any.whl
@@ -144,18 +144,18 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa
 
       # setup-node's built-in pnpm store cache keys on platform AND arch, so
       # the Linux architectures sharing runner.os stay on separate caches.
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: 24
           cache: pnpm
 
-      - uses: actions/setup-python@v6.3.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
         with:
           python-version: '3.10'
 
@@ -164,7 +164,7 @@ jobs:
 
       # Cache pkg's target Node binary; lockfile changes roll the
       # exact key while the restore prefix can seed its replacement.
-      - uses: actions/cache@v4
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: ~/.pkg-cache
           key: pkg-fetch-${{ matrix.target }}-${{ hashFiles('pnpm-lock.yaml') }}
@@ -252,7 +252,7 @@ jobs:
           --runtime-exe "${{ steps.runtime.outputs.exe }}"
           --output-dir dist-python
 
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
           name: deepseek_harness_sdk-${{ needs.plan.outputs.version }}-py3-none-any.whl
           path: dist-python
@@ -312,7 +312,7 @@ jobs:
             /tmp/dsh-sdk/bin/python /work/scripts/smoke-python-runtime.py --scenario sdk-mcp
           '
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: ${{ steps.runtime.outputs.wheel }}
           path: dist-python/${{ steps.runtime.outputs.wheel }}

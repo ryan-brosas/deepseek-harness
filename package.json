@@ -139,7 +139,8 @@
     "verify-ui-layout:baseline": "tsx scripts/verify-ui-layout.ts --write-baseline",
     "verify-web-icons": "tsx scripts/verify-web-icons.ts",
     "check:ci:generated": "tsx scripts/run-gates.ts ci-generated",
-    "verify-source-hygiene": "tsx scripts/verify-source-hygiene.ts"
+    "verify-source-hygiene": "tsx scripts/verify-source-hygiene.ts",
+    "verify-workflow-actions": "tsx scripts/verify-workflow-actions.ts"
   },
   "devDependencies": {
     "@agentclientprotocol/sdk": "0.25.1",

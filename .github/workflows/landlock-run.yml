@@ -34,7 +34,7 @@ jobs:
     outputs:
       ci: ${{ steps.matrix.outputs.ci }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@49933ea5288caeca8642d1e84afbd3f7d6820020
 
       - id: matrix
         run: echo "ci=$(node ./scripts/github-matrix.mjs ci)" >> "$GITHUB_OUTPUT"
@@ -47,13 +47,13 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.matrix.outputs.ci) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@49933ea5288caeca8642d1e84afbd3f7d6820020
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa
         with:
           package_json_file: package.json
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24
           cache: pnpm
@@ -98,13 +98,13 @@ jobs:
     name: darwin (no platform package — degradation proof)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@49933ea5288caeca8642d1e84afbd3f7d6820020
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa
         with:
           package_json_file: package.json
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24
           cache: pnpm

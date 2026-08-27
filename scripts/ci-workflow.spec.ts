@@ -458,7 +458,7 @@ describe('Python release workflows', () => {
       step => typeof step.uses === 'string' && step.uses.startsWith('actions/checkout@'),
     )).toBe(false)
     expect([...runtimeSteps, ...sdkSteps].filter(
-      step => step.uses === 'pypa/gh-action-pypi-publish@release/v1',
+      step => typeof step.uses === 'string' && step.uses.startsWith('pypa/gh-action-pypi-publish@'),
     )).toHaveLength(2)
     expect(runtimePublish).toMatchObject({
       with: { 'packages-dir': 'dist/runtime/', attestations: false },
