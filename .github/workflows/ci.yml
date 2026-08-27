@@ -561,6 +561,7 @@ jobs:
   # The one remaining disabled hosted serial reference job; see
   # TODO(hosted-serial-ci) above.
   serial-macos:
+    # actionlint: disable=if-cond
     if: false
     name: serial / macos
     runs-on: macos-latest
@@ -641,6 +642,7 @@ jobs:
   # Manual, bounded comparison of the actual critical Linux and Windows lanes.
   # The named pools are restricted at the organization level to this repository.
   larger-runner-benchmark:
+    # actionlint: disable=expression
     if: github.event_name == 'workflow_dispatch' && inputs.suite == 'larger-runner-benchmark'
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 15
@@ -728,6 +730,7 @@ jobs:
   # complete unsharded primary aggregate with bounded in-runner parallelism;
   # Windows runs both blocking build targets concurrently through run-gates.
   consolidated-runner-benchmark:
+    # actionlint: disable=expression
     if: github.event_name == 'workflow_dispatch' && inputs.suite == 'consolidated-runner-benchmark'
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 15

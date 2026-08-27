@@ -221,7 +221,7 @@ describe('CI workflow', () => {
       .filter(([, job]) => {
         if (!isRecord(job)) return false
         if (job.if === undefined) return true // unconditional: runs on every event
-        if (job.if === false) return false // `if: false` parses as a boolean
+        if (job.if === false || job.if === 'false') return false // disabled jobs parse as either YAML boolean or string
         if (typeof job.if !== 'string') return true // unrecognized shape: surface it
         return !NOT_PUSH_REACHABLE.has(job.if.trim())
       })
