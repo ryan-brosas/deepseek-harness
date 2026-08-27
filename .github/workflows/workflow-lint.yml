@@ -25,5 +25,6 @@ jobs:
         uses: reviewdog/action-actionlint@v1
         with:
           fail_level: error
+          actionlint_flags: -config-file actionlint.yaml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
