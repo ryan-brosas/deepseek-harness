@@ -29,17 +29,21 @@ defaults:
 
 jobs:
   matrix:
+    timeout-minutes: 30
     name: Matrix
     runs-on: ubuntu-24.04
     outputs:
       ci: ${{ steps.matrix.outputs.ci }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - id: matrix
         run: echo "ci=$(node ./scripts/github-matrix.mjs ci)" >> "$GITHUB_OUTPUT"
 
   native:
+    timeout-minutes: 30
     name: ${{ matrix.platform }}
     needs: matrix
     runs-on: ${{ matrix.runner }}
@@ -48,6 +52,8 @@ jobs:
       matrix: ${{ fromJson(needs.matrix.outputs.ci) }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v4
         with:
@@ -95,10 +101,13 @@ jobs:
           NALR_REQUIRE_LANDLOCK: 1
 
   darwin:
+    timeout-minutes: 30
     name: darwin (no platform package — degradation proof)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v4
         with:

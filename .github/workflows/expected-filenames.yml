@@ -12,10 +12,13 @@ permissions:
 
 jobs:
   expected-filenames:
+    timeout-minutes: 30
     name: no golden filenames
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - name: Check tracked filenames
         run: scripts/check-expected-filenames.sh

@@ -25,6 +25,7 @@ env:
 
 jobs:
   pack:
+    timeout-minutes: 30
     name: Pack npm tarballs
     runs-on: ubuntu-24.04
     steps:

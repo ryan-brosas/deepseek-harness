@@ -12,7 +12,7 @@ name: E2E (real DeepSeek API)
 # explicitly dispatches the workflow without configuring the secret.
 #
 # SECURITY — keep this workflow manual-only unless the credential policy is
-# re-evaluated. Never use `pull_request_target`: it runs base-repository workflow
+# re-evaluated. Never use `workflow_dispatch`: it runs base-repository workflow
 # code with secrets while still allowing untrusted fork code to be checked out.
 # The fork/secret model and its public-repo implications are recorded in
 # .agents/notes/implemented/testing/2026-06-19-real-api-e2e-ci.md.
@@ -41,6 +41,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v4
 

@@ -301,6 +301,8 @@ jobs:
             gate_concurrency: '1'
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v4
         with:
@@ -325,6 +327,8 @@ jobs:
     name: python 3.10 / keyless SDK
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-python@v6.3.0
         with:
@@ -523,6 +527,7 @@ jobs:
       # checkout resolves against the VM's local mirror.
       - uses: actions/checkout@v6
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
@@ -568,6 +573,8 @@ jobs:
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - name: Enable Developer Mode (symlink support)
         shell: pwsh
