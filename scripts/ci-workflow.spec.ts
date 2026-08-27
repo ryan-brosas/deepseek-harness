@@ -46,6 +46,29 @@ describe('GitHub workflow schema', () => {
   })
 })
 
+describe('fork CI workflow', () => {
+  it('uses generated freshness and an always-running aggregate as the required verdict', () => {
+    const workflow = loadWorkflow('.github/workflows/ci-fork.yml')
+    if (!isRecord(workflow.jobs)) throw new TypeError('fork CI workflow must define jobs')
+    const aggregate = workflow.jobs['all-checks-passed']
+    const generated = workflow.jobs['generated-freshness']
+    const staticJob = workflow.jobs.static
+    if (!isRecord(aggregate) || !isRecord(generated) || !isRecord(staticJob)) {
+      throw new TypeError('fork CI must define static, generated-freshness, and all-checks-passed jobs')
+    }
+    expect(aggregate.if).toBe('always()')
+    expect(aggregate.needs).toEqual(['static', 'generated-freshness'])
+    expect(generated.steps).toEqual(expect.arrayContaining([
+      expect.objectContaining({ run: 'pnpm run check:ci:generated' }),
+    ]))
+    expect(staticJob.steps).toEqual(expect.arrayContaining([
+      expect.objectContaining({ run: 'pnpm run check:ci:static' }),
+      expect.objectContaining({ run: 'pnpm test -- --maxWorkers=2' }),
+      expect.objectContaining({ run: 'pnpm run build:official' }),
+    ]))
+  })
+})
+
 describe('CI workflow', () => {
   it('isolates every pnpm action setup destination per runner', () => {
     const files = ['.github/workflows/ci.yml', '.github/workflows/ci-master.yml']
