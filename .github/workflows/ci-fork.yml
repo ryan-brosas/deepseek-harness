@@ -60,6 +60,9 @@ jobs:
       - name: Install (immutable)
         run: pnpm install --frozen-lockfile
 
+      - name: Verify workflow action pins
+        run: pnpm run verify-workflow-actions
+
       - name: Source hygiene ratchet
         env:
           DSH_ARCHIVE_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
