@@ -1,0 +1,76 @@
+name: CI failure triage
+
+# Report failed fork CI runs without changing their verdict or executing PR code.
+on:
+  workflow_run:
+    workflows: ["CI (fork, GitHub-hosted)"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: ci-failure-triage-${{ github.event.workflow_run.id }}
+  cancel-in-progress: true
+
+jobs:
+  triage:
+    name: report CI failure
+    if: >-
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Collect failed jobs
+        id: failures
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+          gh run view "$RUN_ID" --repo "$REPOSITORY" --json jobs \
+            --jq '.jobs[] | select(.conclusion == "failure") | "- [\(.name)](\(.url))"' \
+            > failed-jobs.md
+          test -s failed-jobs.md
+
+      - name: Find pull request
+        id: pull-request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+          number="$(gh api "repos/$REPOSITORY/actions/runs/$RUN_ID" --jq '.pull_requests[0].number // empty')"
+          test -n "$number"
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+
+      - name: Upsert failure report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.pull-request.outputs.number }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          RUN_NAME: ${{ github.event.workflow_run.name }}
+        run: |
+          set -euo pipefail
+          marker='<!-- ci-failure-triage -->'
+          {
+            printf '%s\n' "$marker"
+            printf '## CI failure triage\n\n'
+            printf 'Required CI failed: [%s](%s)\n\n' "$RUN_NAME" "$RUN_URL"
+            cat failed-jobs.md
+            printf '\nReproduce locally with:\n\n'
+            printf '%s\n' '```sh' 'pnpm install --frozen-lockfile' 'pnpm run hygiene' 'pnpm run typecheck' 'pnpm run test' '```'
+            printf '\nThis report does not downgrade, retry, or hide the required CI verdict.\n'
+          } > failure-report.md
+          existing="$(gh api "repos/$REPOSITORY/issues/$PR_NUMBER/comments" --paginate --jq '.[] | select(.body | contains("<!-- ci-failure-triage -->")) | .id' | tail -n 1)"
+          if [ -n "$existing" ]; then
+            gh api --method PATCH "repos/$REPOSITORY/issues/comments/$existing" -F body=@failure-report.md >/dev/null
+          else
+            gh pr comment "$PR_NUMBER" --repo "$REPOSITORY" --body-file failure-report.md >/dev/null
+          fi
