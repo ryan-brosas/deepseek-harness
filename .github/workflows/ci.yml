@@ -4,9 +4,9 @@ name: CI
 # enterprise matrix remains available only as an explicit source contract; the
 # impossible path filter prevents it from appearing on ordinary fork PRs.
 on:
-  pull_request:
-    paths:
-      - '.github/ci-canonical/**'
+  # This enterprise source-contract workflow is not a fork PR gate. The fork
+  # gate is ci-fork.yml; manual dispatch remains available to runner owners.
+  workflow_dispatch:
 permissions:
   contents: read
 

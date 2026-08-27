@@ -77,6 +77,14 @@ describe('fork CI workflow', () => {
 })
 
 describe('CI workflow', () => {
+  it('keeps the enterprise source-contract workflow out of pull requests', () => {
+    const workflow = loadWorkflow('.github/workflows/ci.yml')
+    if (!isRecord(workflow.on)) throw new TypeError('CI workflow must define triggers')
+    expect(workflow.on.pull_request).toBeUndefined()
+    expect(workflow.on.workflow_dispatch).toBeNull()
+  })
+
+
   it('isolates every pnpm action setup destination per runner', () => {
     const files = ['.github/workflows/ci.yml', '.github/workflows/ci-master.yml']
     const setups: Array<{ jobName: string; step: unknown }> = []
@@ -228,7 +236,7 @@ describe('CI workflow', () => {
       throw new TypeError('both CI workflows must define on')
     }
     expect(Object.keys(workflow.on).sort()).toEqual(['push', 'workflow_dispatch'])
-    expect(Object.keys(prWorkflow.on)).toEqual(['pull_request'])
+    expect(Object.keys(prWorkflow.on)).toEqual(['workflow_dispatch'])
 
     // Neither drill may carry a job-level group: it would not exempt the job
     // from run-scoped cancellation.
