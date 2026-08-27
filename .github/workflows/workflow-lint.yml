@@ -1,15 +1,12 @@
 name: Workflow discipline
 
 on:
+  # This check is a required branch-protection context, so it must be emitted
+  # for every PR. Path filters would leave the required context absent on
+  # ordinary source changes and block otherwise valid merges.
   pull_request:
-    paths:
-      - '.github/**'
-      - 'actionlint.yaml'
   push:
     branches: [master]
-    paths:
-      - '.github/**'
-      - 'actionlint.yaml'
 
 permissions:
   contents: read
