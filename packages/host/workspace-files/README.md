@@ -1,7 +1,5 @@
 # @monotykamary/dsh-host-workspace-files
 
-English | [中文](README.zh.md)
-
 Session-authorized, provider-neutral Host Remote for workspace directory listings, bounded text reads, and version-guarded replacements. `WorkspaceFilesGateway` registers the `workspaceFiles` namespace with three generated direct methods: `workspaceFiles/list`, `workspaceFiles/read`, and `workspaceFiles/write`. The browser supplies a Session id and a `WorkspaceFileLocator`; Typert resolves the Session's Agent before invoking the methods, so the gateway never accepts a browser-supplied absolute path or filesystem provider.
 
 Every call resolves the selected Session's `cwd` through that Agent's current `ctx.fs`. A locator is an array of exact child names relative to that root. Traversal lists each parent and follows only the matching provider-owned `FsDirEntry.target`; `fs.contains(root, target)` rejects escaped children before traversal, reading, or writing. Root-escaping entries remain visible as disabled `other` rows without exposing their target metadata. Missing filesystem service, missing Session cwd, malformed or over-depth locators, missing entries, cancellation, and unexpected provider failures reject the Remote call.

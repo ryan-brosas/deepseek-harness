@@ -1,7 +1,5 @@
 # @monotykamary/dsh-tool-subagent
 
-English | [中文](README.zh.md)
-
 Model- and human-facing delegation Consumers over one configured `ctx.subagents` provider. Changing the provider changes transport without changing the execution contract.
 
 ## Provider selection and lifecycle

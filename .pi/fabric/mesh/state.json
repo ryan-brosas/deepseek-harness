@@ -1,0 +1,117 @@
+{
+  "format": 1,
+  "entries": {
+    "topology/peer-seq": {
+      "key": "topology/peer-seq",
+      "value": {
+        "format": 1,
+        "next": 1
+      },
+      "version": 1,
+      "updatedAt": 1787816639566,
+      "updatedBy": {
+        "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "name": "main",
+        "kind": "main",
+        "sessionId": "01a0421e-2c3c-7fe2-9bdf-ede06815eca6"
+      }
+    },
+    "topology/hosts/96092c481eabb89d85f7e2e4b74056b9e83f88c2e0322c1320fcd3b6b9b42ade": {
+      "key": "topology/hosts/96092c481eabb89d85f7e2e4b74056b9e83f88c2e0322c1320fcd3b6b9b42ade",
+      "value": {
+        "format": 1,
+        "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "rootId": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "identity": {
+          "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+          "name": "main",
+          "kind": "main",
+          "sessionId": "01a0421e-2c3c-7fe2-9bdf-ede06815eca6"
+        },
+        "startedAt": 1787815674349,
+        "updatedAt": 1787816674567,
+        "expiresAt": 1787816689567
+      },
+      "version": 8,
+      "updatedAt": 1787816674567,
+      "updatedBy": {
+        "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "name": "main",
+        "kind": "main",
+        "sessionId": "01a0421e-2c3c-7fe2-9bdf-ede06815eca6"
+      }
+    },
+    "sessions/01a0421e-2c3c-7fe2-9bdf-ede06815eca6": {
+      "key": "sessions/01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+      "value": {
+        "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "name": "DH-1",
+        "label": "DH-1",
+        "kind": "peer",
+        "status": "idle",
+        "runner": "pi",
+        "transport": "host",
+        "cwd": "/mnt/ssd/work/harness/deepseek-harness",
+        "sessionId": "01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "model": "openai-codex-4/gpt-5.6-luna",
+        "thinking": "high",
+        "startedAt": 1787815674348,
+        "updatedAt": 1787816674567,
+        "pendingMessages": false,
+        "local": false
+      },
+      "version": 8,
+      "updatedAt": 1787816674567,
+      "updatedBy": {
+        "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "name": "main",
+        "kind": "main",
+        "sessionId": "01a0421e-2c3c-7fe2-9bdf-ede06815eca6"
+      }
+    },
+    "topology/participants/96092c481eabb89d85f7e2e4b74056b9e83f88c2e0322c1320fcd3b6b9b42ade": {
+      "key": "topology/participants/96092c481eabb89d85f7e2e4b74056b9e83f88c2e0322c1320fcd3b6b9b42ade",
+      "value": {
+        "format": 1,
+        "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "kind": "root",
+        "rootId": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "ownerHostId": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "ownerIdentityId": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "name": "main",
+        "status": "idle",
+        "runner": "pi",
+        "transport": "host",
+        "capabilities": [
+          "steer",
+          "followUp",
+          "fabric"
+        ],
+        "cwd": "/mnt/ssd/work/harness/deepseek-harness",
+        "sessionId": "01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "model": "openai-codex-4/gpt-5.6-luna",
+        "thinking": "high",
+        "startedAt": 1787815674348,
+        "updatedAt": 1787816674567,
+        "pendingMessages": false,
+        "controlProtocol": "v1",
+        "label": "DH-1"
+      },
+      "version": 8,
+      "updatedAt": 1787816674571,
+      "updatedBy": {
+        "id": "session:01a0421e-2c3c-7fe2-9bdf-ede06815eca6",
+        "name": "main",
+        "kind": "main",
+        "sessionId": "01a0421e-2c3c-7fe2-9bdf-ede06815eca6"
+      }
+    }
+  },
+  "versions": {
+    "topology/peer-seq": 1,
+    "topology/hosts/96092c481eabb89d85f7e2e4b74056b9e83f88c2e0322c1320fcd3b6b9b42ade": 8,
+    "sessions/01a0421e-2c3c-7fe2-9bdf-ede06815eca6": 8,
+    "topology/participants/96092c481eabb89d85f7e2e4b74056b9e83f88c2e0322c1320fcd3b6b9b42ade": 8
+  },
+  "tombstoneOrder": []
+}

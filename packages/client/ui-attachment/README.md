@@ -1,7 +1,5 @@
 # @monotykamary/dsh-client-ui-attachment
 
-English | [中文](README.zh.md)
-
 Dynamic attachment presentation plugin for the conversation UI. It waits for the conversation package's `conversation.input.attachments` and `conversation.message.images` declarations through `ctx.slots.inject`, then registers the composer draft-image rail, document drop target, chat-history image gallery, and original-image lightbox. The conversation slot owner supplies attachment data, image loading, callbacks, and its namespace translator. The client entry exports the pure `AttachmentRail`, `MessageImage`, `ImageGallery`, and `ImageLightbox` atoms for another composed application. `AttachmentRail` also accepts read-only owner-supplied image/video previews while preserving the same 64px paging geometry; slot-owned draft state, document drag handling, slot registration, and translation binding remain internal.
 
 ## Attachment rail

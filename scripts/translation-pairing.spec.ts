@@ -287,7 +287,7 @@ describe('translation scope discovery', () => {
     'BRAND_GUIDELINES.i18n.yaml',
     'apps/cli/README.md',
     'future/subtree/readme.md',
-    'packages/example/README.zh.md',
+    'packages/example/README.md',
     'native/example/README.i18n.yaml',
     '.agents/notes/proposed/feature.md',
     'docs/guide.md',

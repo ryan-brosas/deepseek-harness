@@ -1,7 +1,5 @@
 # `@monotykamary/dsh-web-identity`
 
-English | [中文](README.zh.md)
-
 Web identity authority for `dsh web`: a function plugin that resolves a per-request identity, exposes it as the optional `ctx.identity` service the connection layer gates through, partitions sessions by user, and (for passkey) mounts the `/auth/*` login flow. With no `identity` config the plugin provides nothing and every request is the operator tier — behavior byte-identical to a deployment without this package.
 
 Two providers, with the defaults the localterm identity design established:

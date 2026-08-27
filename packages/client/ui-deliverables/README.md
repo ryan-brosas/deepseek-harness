@@ -1,7 +1,5 @@
 # @monotykamary/dsh-client-ui-deliverables
 
-English | [中文](README.zh.md)
-
 Changed-files, clickable-reference, and loaded Changes feature owner. The Node half registers final-response guidance; the browser half registers the deliverables row a finished turn ends with into the chat view's `conversation.chat.turnTail` hole, links matching inline-code references in the closing prose, and contributes Changes plus its icon and launcher description to [`ui-workbench`](../ui-workbench/README.md). The shipped Web patch pairs this package with [`tool-session-mutations`](../../session-query/tool-session-mutations/README.md), whose Host-owned `changes_read` reader and pure ledger remain available without putting this Client package in the Host compiler face.
 
 `deliverablesDefinition` folds each Turn's committed `FileMutation` receipts into engine-published `DeliverablesTurnData`; `producedForClosing` reads that data with the closing Assistant seq. Direct `tool/result` receipts and nested `tool/code-dispatch` receipts use the same versioned projection and are folded by commit order rather than parallel-call result order, while the nested event's root execution location supplies Turn ownership. Presentation metadata may provide a title but cannot create a mutation entry. Calls without valid receipts contribute nothing; deletes remain in Changes but create no openable-file entry, and produced paths appear once per Turn in first-seen order. The Conversation Location index preserves Turn membership when a Turn mutates and then ends without content text.

@@ -1,7 +1,5 @@
 # @monotykamary/dsh-agent-instructions
 
-English | [中文](README.zh.md)
-
 Per-session workspace instruction loading for `AGENTS.md`-compatible files plus a separate trusted user system-policy file. The plugin registers `$DSH_HOME/APPEND_SYSTEM.md` in the system prompt, injects the initial user-global and project instruction chain into durable history, then discovers nested files and reports later changes or removals after successful filesystem tool calls.
 
 ## Lifecycle

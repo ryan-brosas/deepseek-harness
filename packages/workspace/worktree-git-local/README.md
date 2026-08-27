@@ -1,7 +1,5 @@
 # @monotykamary/dsh-worktree-git-local
 
-English | [中文](README.zh.md)
-
 Local Git provider `git-local` for `ctx.worktrees`.
 
 ## Behavior

@@ -1,7 +1,5 @@
 # @monotykamary/dsh-fs-local
 
-English | [中文](README.zh.md)
-
 The **local-filesystem implementation** of the `ctx.fs` provider contract ([`@monotykamary/dsh-fs`](../fs)). Backs the twelve `FileSystem` primitives with the host filesystem; loading it as a plugin populates `ctx.fs`.
 
 ```ts ignore-check
