@@ -1,0 +1,21 @@
+{
+  "entries": [
+    {
+      "workflow": ".github/workflows/ci.yml",
+      "job": "observational-tests",
+      "reason": "Host scheduler timing observations are visible but do not define the required PR verdict."
+    },
+    {
+      "workflow": ".github/workflows/sandbox.yml",
+      "job": "sandbox-e2e",
+      "reason": "PTY timing observations on the macOS parity leg are non-deterministic.",
+      "stepName": "PowerShell PTY observations (darwin parity)"
+    },
+    {
+      "workflow": ".github/workflows/sandbox.yml",
+      "job": "sandbox-e2e",
+      "reason": "HMR filesystem timing observations on the macOS parity leg are non-deterministic.",
+      "stepName": "HMR filesystem observations (darwin parity)"
+    }
+  ]
+}

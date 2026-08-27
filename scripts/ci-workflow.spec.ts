@@ -3,10 +3,46 @@ import { resolve } from 'node:path'
 import * as yaml from 'js-yaml'
 import { describe, expect, it } from 'vitest'
 import { requiredReadinessJobs } from './readiness.ts'
-
 const root = resolve(import.meta.dirname, '..')
+const observationalInventory = JSON.parse(readFileSync(resolve(root, 'scripts/observational-workflows.json'), 'utf8')) as { entries: Array<{ workflow: string; job: string; stepName?: string; reason: string }> }
 const runnerPrivatePnpmDestination = '${{ runner.temp }}/setup-pnpm'
 const nativeWindowsPnpmDestination = '${{ runner.temp }}/setup-pnpm-js'
+
+describe('Observational workflow inventory', () => {
+  it('contains every continue-on-error use and only explicitly non-blocking checks', () => {
+    const expected = observationalInventory.entries
+      .map(entry => `${entry.workflow}:jobs.${entry.job}${entry.stepName === undefined ? '' : `.steps.${entry.stepName}`}`)
+      .sort()
+    const actual: string[] = []
+    for (const file of globSync('.github/workflows/*.yml', { cwd: root }).sort()) {
+      const workflow = loadWorkflow(file)
+      if (!isRecord(workflow.jobs)) continue
+      for (const [jobName, job] of Object.entries(workflow.jobs)) {
+        if (!isRecord(job)) continue
+        if (job['continue-on-error'] === true) actual.push(`${file}:jobs.${jobName}`)
+        if (!Array.isArray(job.steps)) continue
+        for (const [stepIndex, step] of job.steps.entries()) {
+          if (isRecord(step) && step['continue-on-error'] === true) {
+            actual.push(`${file}:jobs.${jobName}.steps.${typeof step.name === 'string' ? step.name : String(stepIndex)}`)
+          }
+        }
+      }
+    }
+    expect(actual.sort()).toEqual(expected)
+    for (const entry of observationalInventory.entries) {
+      const workflow = loadWorkflow(entry.workflow)
+      const job = workflowJob(workflow, entry.job)
+      if (entry.stepName === undefined) {
+        expect(job['continue-on-error'], `${entry.workflow} ${entry.job} must remain explicitly non-blocking`).toBe(true)
+        expect(requiredReadinessJobs).not.toContain(entry.job)
+      } else {
+        if (!Array.isArray(job.steps)) throw new TypeError(`${entry.workflow} ${entry.job} must define steps`)
+        const step = job.steps.find(value => isRecord(value) && value.name === entry.stepName)
+        expect(step, `${entry.workflow} ${entry.job} step ${entry.stepName} must remain explicitly non-blocking`).toMatchObject({ 'continue-on-error': true })
+      }
+    }
+  })
+})
 
 describe('GitHub workflow schema', () => {
 
