@@ -68,6 +68,10 @@ jobs:
       - name: Unit tests
         env:
           NODE_ENV: test
+          # The fork runner is Linux. Real PowerShell PTY coverage belongs to
+          # the native Windows lane and is not deterministic on hosted Linux
+          # images where pwsh may be installed incidentally.
+          DSH_SKIP_REAL_PWSH_TESTS: '1'
         run: pnpm test -- --maxWorkers=2
 
       - name: Build
