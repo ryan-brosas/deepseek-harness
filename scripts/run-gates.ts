@@ -31,6 +31,7 @@ export type Mode =
   | 'ci-windows-blocking'
   | 'ci-windows-complete'
   | 'ci-windows-observational'
+  | 'ci-generated'
   | 'node-compat'
   | 'check-all'
   | 'hygiene'
@@ -121,13 +122,14 @@ function parseMode(raw: string | undefined): Mode {
     case 'ci-windows-blocking':
     case 'ci-windows-complete':
     case 'ci-windows-observational':
+    case 'ci-generated':
     case 'node-compat':
     case 'check-all':
     case 'hygiene':
       return raw
     default:
       throw new Error(
-        `run-gates: expected mode ci-primary | ci-linux-primary | ci-static | ci-lint-contracts-ready | ci-coverage | ci-snapshot | ci-artifacts | ci-consumers | ci-windows-blocking | ci-windows-complete | ci-windows-observational | node-compat | check-all | hygiene, got ${JSON.stringify(raw)}.`,
+        `run-gates: expected mode ci-primary | ci-linux-primary | ci-static | ci-lint-contracts-ready | ci-coverage | ci-snapshot | ci-artifacts | ci-consumers | ci-windows-blocking | ci-windows-complete | ci-windows-observational | ci-generated | node-compat | check-all | hygiene, got ${JSON.stringify(raw)}.`,
       )
   }
 }
@@ -227,6 +229,8 @@ export function gatesForMode(selected: Mode): Gate[] {
       return ciWindowsCompleteGates()
     case 'ci-windows-observational':
       return ciWindowsObservationalGates()
+    case 'ci-generated':
+      return generatedFreshnessGates()
     case 'node-compat':
       return nodeCompatGates()
     case 'check-all':
@@ -252,6 +256,16 @@ export function gatesForMode(selected: Mode): Gate[] {
         pnpmScript('vendored-links', 'verify-vendored-links', { label: 'vendored links' }),
       ]
   }
+}
+
+/** Verify every checked-in artifact owned by a repository generator. */
+function generatedFreshnessGates(): Gate[] {
+  return [
+    pnpmScript('client-catalog', 'verify-client-catalog', { label: 'client catalog freshness' }),
+    pnpmScript('third-party-notices', 'verify-third-party-notices', { label: 'third-party notices freshness' }),
+    pnpmScript('scoped-events', 'verify-scoped-events', { label: 'scoped events freshness' }),
+    pnpmScript('module-graph', 'verify-module-graph', { label: 'module graph freshness' }),
+  ]
 }
 
 function ciSharedStaticGates(): Gate[] {

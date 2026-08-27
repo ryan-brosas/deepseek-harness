@@ -137,7 +137,9 @@
     "postinstall": "node scripts/install-lefthook.mjs",
     "verify-ui-layout": "tsx scripts/verify-ui-layout.ts",
     "verify-ui-layout:baseline": "tsx scripts/verify-ui-layout.ts --write-baseline",
-    "verify-web-icons": "tsx scripts/verify-web-icons.ts"
+    "verify-web-icons": "tsx scripts/verify-web-icons.ts",
+    "check:ci:generated": "tsx scripts/run-gates.ts ci-generated",
+    "verify-source-hygiene": "tsx scripts/verify-source-hygiene.ts"
   },
   "devDependencies": {
     "@agentclientprotocol/sdk": "0.25.1",
