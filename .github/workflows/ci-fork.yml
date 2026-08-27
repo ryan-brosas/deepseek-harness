@@ -1,6 +1,6 @@
 name: CI (fork, GitHub-hosted)
 
-# Fork-local CI: this fork has none of upstream's self-hosted enterprise
+# Authoritative fork CI: this fork has none of upstream's self-hosted enterprise
 # runners (dsh-ubuntu-* / vm-backup / dsh-win-ci labels in ci.yml). It runs the
 # fork-safe quality gate on GitHub-hosted Ubuntu and intentionally avoids the
 # upstream enterprise/self-hosted runner lanes.
@@ -60,6 +60,11 @@ jobs:
       - name: Install (immutable)
         run: pnpm install --frozen-lockfile
 
+      - name: Source hygiene ratchet
+        env:
+          DSH_ARCHIVE_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
+        run: pnpm run verify-source-hygiene
+
       - name: Static gates
         env:
           DSH_ARCHIVE_BASE_REF: ${{ github.event.pull_request.base.sha || github.sha }}
@@ -76,3 +81,42 @@ jobs:
 
       - name: Build
         run: pnpm run build:official
+
+  generated-freshness:
+    name: generated artifacts / freshness
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          dest: ${{ runner.temp }}/setup-pnpm
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.PRIMARY_NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install (immutable)
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify maintained generated artifacts are fresh
+        run: pnpm run check:ci:generated
+
+  all-checks-passed:
+    name: all checks passed
+    if: always()
+    needs: [static, generated-freshness]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if any needed job did not succeed
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
+        run: |
+          echo "::error::Needed job results: ${{ join(needs.*.result, ', ') }}"
+          exit 1
+      - name: All checks passed
+        run: echo "All needed jobs succeeded (${{ join(needs.*.result, ', ') }})"

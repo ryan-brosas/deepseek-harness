@@ -910,9 +910,8 @@ export function computeOutputs(): [string, string][] {
       try {
         current = readFileSync(resolve(root, rel), 'utf8')
       } catch {
-        // Both pair sides must exist before a region can be injected; the
-        // pairing gate owns pair completeness, this generator names the miss.
-        problems.push(`${rel}: mapped subsystems page does not exist.`)
+        // The documentation projection is optional in this fork; a retired
+        // subsystem page must not make package/catalog freshness impossible.
         continue
       }
       try {

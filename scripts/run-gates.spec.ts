@@ -71,6 +71,7 @@ describe('gate graph validation', () => {
     'ci-windows-blocking',
     'ci-windows-complete',
     'ci-windows-observational',
+    'ci-generated',
     'node-compat',
     'check-all',
     'hygiene',
