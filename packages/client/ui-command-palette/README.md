@@ -1,7 +1,5 @@
 # @monotykamary/dsh-client-ui-command-palette
 
-English | [中文](README.zh.md)
-
 Global Web command palette registered into the layout-owned `shell.overlay` list slot. `Cmd+K` on macOS and `Ctrl+K` elsewhere toggle one body-end dialog over every application column; the palette keeps `#root` inert while open, restores its preceding inert state and focus when it closes, and keeps keyboard focus in its search input.
 
 The root view shows New Session actions and up to twelve recent visible root Sessions. A non-blank query ranks exact, prefix, and contained matches over Session titles, Workspace titles, and paths immediately. Queries of at least two characters also issue the existing abortable `session.search` request after 250 ms and merge Host-ranked message snippets into the bounded Session list. Archived Sessions, blank Sessions, and subagent-origin Sessions remain hidden. A failed content request leaves metadata matches available, and the Host result bound drives the refine-query notice.

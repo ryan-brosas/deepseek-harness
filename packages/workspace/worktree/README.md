@@ -1,7 +1,5 @@
 # @monotykamary/dsh-worktree
 
-English | [中文](README.zh.md)
-
 Provider registry and provider-neutral vocabulary for repository worktrees. `ctx.worktrees` resolves an explicit deployment default, delegates locate/list/create/remove/sweep operations, and gives every checkout and repository a branded identity.
 
 ## Service API

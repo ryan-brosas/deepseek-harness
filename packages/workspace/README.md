@@ -1,7 +1,5 @@
 # workspace/ — workspace entity family
 
-English | [中文](README.zh.md)
-
 This family owns persistent workspaces and provider-backed repository worktrees.
 
 | Package | Role | ctx key |

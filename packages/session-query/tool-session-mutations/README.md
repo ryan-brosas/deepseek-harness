@@ -1,7 +1,5 @@
 # @monotykamary/dsh-tool-session-mutations
 
-English | [中文](README.zh.md)
-
 Bounded model reader over the current Agent's durable file-mutation receipts. The package registers `changes_read`; its pure `./ledger` entry exports the same commit-ordered projection for external automation without evaluating the plugin.
 
 A list call returns summaries after an optional `after_commit_order` cursor. An exact `commit_order` call returns the recorded replacement hunks in UTF-16 pages. Every result states that the ledger covers receipt-aware tools only. It never reads or writes the workspace, and its output is recorded intent rather than unified-patch syntax or repository state.

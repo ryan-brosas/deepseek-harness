@@ -1,7 +1,5 @@
 # @monotykamary/dsh-terminal-web
 
-English | [中文](README.zh.md)
-
 Host Consumer that exposes Agent-owned persistent terminals to the same-origin Web client at `/api/terminal`. It registers a full-duplex WebSocket upgrade through `ctx.connection`, so Host/Origin checks and optional identity admission run before this package receives a socket. Every operation resolves the selected Agent and delegates authorization to the Host `ctx.terminals` registry; browser clients cannot attach terminal sessions created for model tools.
 
 ## Operations and framing

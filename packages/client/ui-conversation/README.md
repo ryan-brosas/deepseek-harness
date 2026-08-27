@@ -1,7 +1,5 @@
 # @monotykamary/dsh-client-ui-conversation
 
-English | [中文](README.zh.md)
-
 Conversation domain: skeleton (header/tabs/composer/empty state), chat view (grouped step-summary flow, streaming tail isolation, and turn status), composer dock (session stats sticky with the input), input dock (queue rows plus the todo plan strip), the workbench Inspect contribution, and scope-addressed ConversationController. Tool presentation belongs to [`ui-tool`](../ui-tool/README.md).
 
 The rendered chrome adapts T3 Code revision `a4cc1367b03ee0c1dc2b50fceac81ef5e63212e2`: a scoped `#fcfcfc`/`#0a0a0a` canvas, 52px title rhythm above DSH's view tabs, 12px transcript gap, 15/24 message typography, neutral 80%-width user bubbles, fine-pointer hover/focus actions, and a 22px translucent composer. The composer deliberately uses no backdrop filter so sticky scrolling and its transparent-text draft layers stay on the ordinary repaint path across desktop compositors ([decision](../../../.agents/notes/implemented/bug-fix/2026-08-21-sticky-composer-avoids-backdrop-filtering.md)). The resident Hero, sticky scroll owner, shared width axis, composer docks, and keyed Chat Node slots remain DSH behavior. Clock and context metadata shrink and elide before they can establish a minimum Chat width on compact columns; [`THIRD_PARTY_NOTICES.md`](../../../THIRD_PARTY_NOTICES.md) retains the complete T3 MIT text.

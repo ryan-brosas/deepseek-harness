@@ -1,7 +1,5 @@
 # @monotykamary/dsh-client-ui-brand-official
 
-English | [中文](README.zh.md)
-
 This package always registers the first `settings.onboarding` step. It fills `sidebar.brand.mark`, `sidebar.brand.name`, and `conversation.hero.brand.mark` only when `DSH_CLIENT_BUILD_PROFILE` is `official`; other builds retain the shell brand fallbacks.
 
 The welcome and the transactional three-mark set install through declaration-aware `slots.inject()` calls. The package therefore works whether its row activates before or after the settings, sidebar, and conversation declarers, withdraws each contribution with its declaration, and leaves no partial mark mix during HMR. The node half is an empty Loader seat, and the browser title remains a build-environment concern outside this package.

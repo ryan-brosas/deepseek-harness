@@ -264,7 +264,7 @@ const EXACT_EDITS: readonly ExactEdit[] = [
   },
   {
     id: 'agent-spine-demo-mounted-tree-zh',
-    file: 'packages/examples/agent-spine-demo/README.zh.md',
+    file: 'packages/examples/agent-spine-demo/README.md',
     find: '@cordisjs/plugin-timer            timer service',
     replace: '@monotykamary/cordis-plugin-timer  timer service',
     expect: 1,

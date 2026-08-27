@@ -1,7 +1,5 @@
 # @monotykamary/dsh-session-title-all-prompts-llm
 
-English | [中文](README.zh.md)
-
 Optional `ctx.sessionTitle` provider that summarizes every eligible human message through `ctx.llm`. It registers the `all-prompts` cadence and starts a new revision after each new human prompt, using seeded history as well as child-session prompts. A newer revision aborts and supersedes older work; even a provider that ignores cancellation cannot commit stale output.
 
 Automatic generation is off by default: the provider mounts only while the resolved `session-title-llm` settings section has `enabled: true` (the Web settings toggle), or when the composition entry sets it. Disabling or removing the plugin leaves the deterministic fallback in place.
